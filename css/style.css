@@ -52,6 +52,15 @@ p {
   margin-top: 16px;
 }
 
+.message {
+  text-align: center;
+  font-weight: bold;
+}
+
+.l_question0 {
+  text-align: center;
+}
+
 .m_question_p {
   font-weight: bold;
 }

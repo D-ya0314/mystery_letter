@@ -48,34 +48,13 @@
     <audio id="seCut" src="audio/break-heart.mp3" preload="auto"></audio>
   </head>
   <body class="js_body">
-    <div class="l_question0">
-      <div class="l_contents l_container-sm">
-        <p>通りすがりの人がメッセージが書かれた紙を渡しながらこう呟いた...</p>
-        <p>「最初の文字を読むとその世界に入れる。」</p>
-        <p>“彼”は何を伝えたかったのだろう？</p>
-      </div>
-      <div class="letter">
-        <p class="message">Loudly Echoes The Tiny Encrypted Request.</p>
-      </div>
-
-      <input type="text" id="q0-answer" placeholder="ここに答えを入力" />
-      <button onclick="q0CheckAnswer()">答える</button>
-      <p id="q0-result"></p>
+    <div class="letter">
+      <p class="m_title">
+        <br /><br /><br /><br />
+        よくここまで来たな！簡単すぎたか？？<br />手紙の世界から出してやろう。<br /><br /><br /><br /><br /><br /><br /><br />
+        次回も楽しみに待っていろ！！
+        <br /><br /><br /><br /><br />
+      </p>
     </div>
-    <script>
-      function q0CheckAnswer() {
-        const input = document
-          .getElementById("q0-answer")
-          .value.trim()
-          .toLowerCase();
-        const result = document.getElementById("q0-result");
-
-        if (input === "letter") {
-          location.href = "letter.html";
-        } else {
-          result.textContent = "違うようだ…。" + input;
-        }
-      }
-    </script>
   </body>
 </html>
