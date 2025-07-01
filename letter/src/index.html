@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>マジシャンからの手紙</title>
+    <meta name="description" content="マジシャンからの手紙" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- favicon/web-clip-icon -->
+    <link rel="icon" href="favicon.ico" type="image/ico" />
+    <link rel="icon" href="favicon.png" type="image/png" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="webclip.png" />
+
+    <!-- ogp共有時の表示 -->
+    <meta property="og:site_name" content="D-yaのWEBページ" />
+    <meta property="og:url" content="http://127.0.0.1:5500/src/index.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="D-yaのWEBページ" />
+    <meta property="og:description" content="D-yaのWEBページ" />
+    <meta property="og:image" content="URL" />
+    <meta property="og:locale" content="ja_JP" />
+
+    <meta property="fb:app_id" content="AppID" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@twitter_id" />
+    <meta name="twitter:description" content="D-yaのWEBページ" />
+    <meta name="twitter:image:src" content="URL" />
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- css -->
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- js -->
+    <script src="js/main.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+
+    <!-- audio -->
+    <audio id="seCut" src="audio/break-heart.mp3" preload="auto"></audio>
+  </head>
+  <body class="js_body">
+    <div class="letter">
+      <p class="js_hint">ミス回数：<span id="mistakeCountDisplay">0</span></p>
+
+      <p class="js_hint">Q4回答：<span id="q4AnswerValueDisplay">0</span></p>
+
+      <h1 class="m_title">
+        <span
+          class="js_magician"
+          id="magician"
+          ondrop="dropCard(event)"
+          ondragover="allowDrop(event)"
+          >“マジシャン”</span
+        >からの不思議な手紙
+      </h1>
+      <p>
+        私はこの手紙に住んでいる謎の案内人...<br />下のカードを使ってこの手紙の謎を解いてみるがよい。
+      </p>
+      <section class="l_question">
+        <p class="m_question_p">Q1.○○○には何が入るかな？</p>
+        <div class="l_q1_content">
+          <div class="l_question_img-box">
+            <img
+              class="m_qurstion_img"
+              src="img/bee.png"
+              alt=""
+              width="368"
+              height="400"
+            />
+          </div>
+          <p class="m_q1_p">→</p>
+          <p class="m_q1_p">ダイヤ</p>
+        </div>
+        <div class="l_q1_content">
+          <div class="l_question_img-box">
+            <img
+              class="m_qurstion_img"
+              src="img/gun.png"
+              alt=""
+              width="400"
+              height="400"
+            />
+          </div>
+          <p class="m_q1_p">→</p>
+          <p class="m_q1_p">○○○</p>
+        </div>
+        <input type="text" id="q1-answer" placeholder="ここに答えを入力" />
+        <button onclick="q1CheckAnswer()">答える</button>
+        <p id="q1-result"></p>
+      </section>
+      <script>
+        function q1CheckAnswer() {
+          const input = document
+            .getElementById("q1-answer")
+            .value.trim()
+            .toLowerCase();
+          const result = document.getElementById("q1-result");
+
+          if (input === "クラブ" || input === "くらぶ") {
+            result.textContent = "正解だ…。次の謎に進め。";
+            // location.href = "next.html"; // ページ移動させたいならこれ
+          } else {
+            result.textContent = "違うようだ…。もう一度試せ。";
+            /* 🔊失恋音再生 */
+            brakeHeart();
+            /* ミスカウント */
+            addMistake();
+          }
+        }
+      </script>
+      <section class="l_question">
+        <p class="m_question_p">Q2.手札に潜む言葉…君に読み解けるか？<br />『11　1　c　13』</p>
+        <input type="text" id="q2-answer" placeholder="ここに答えを入力" />
+        <button onclick="q2CheckAnswer()">答える</button>
+        <p id="q2-result"></p>
+      </section>
+
+      <script>
+        function q2CheckAnswer() {
+          const input = document
+            .getElementById("q2-answer")
+            .value.trim()
+            .toLowerCase();
+          const result = document.getElementById("q2-result");
+
+          if (input === "jack") {
+            result.textContent =
+              "正解だ...。君もまた、“彼”と同じ札を握ったようだな…。";
+          } else {
+            result.textContent =
+              "答えが違うようだ…もう一度手札を見直すがいい。";
+            /* 🔊失恋音再生 */
+            brakeHeart();
+            /* ミスカウント */
+            addMistake();
+          }
+        }
+      </script>
+      <section class="l_question">
+        <p class="m_question_p">Q3.君には次の♡を切ることができるかな？</p>
+        <div class="drop-area">
+          <div
+            class="heart-slot"
+            id="heart0"
+            ondrop="dropHeart(event, 0)"
+            ondragover="allowDrop(event)"
+          >
+            <div class="heart-content">♡</div>
+          </div>
+          <div
+            class="heart-slot"
+            id="heart1"
+            ondrop="dropHeart(event, 1)"
+            ondragover="allowDrop(event)"
+          >
+            <div class="heart-content">♡</div>
+          </div>
+          <div
+            class="heart-slot"
+            id="heart2"
+            ondrop="dropHeart(event, 2)"
+            ondragover="allowDrop(event)"
+          >
+            <div class="heart-content">♡</div>
+          </div>
+        </div>
+        <p id="q3-result"></p>
+      </section>
+      <section class="l_question">
+        <p class="m_question_p">
+          Q4.実はこの手紙はラブレター、、、なんてね。ところで失恋した回数は何回なんだい？<br />それにしても失恋とは悲しいことだ。時にはリセット↻して目の前のものに耳をかたむける必要があるかもしれない...
+        </p>
+        <input
+          type="number"
+          id="q4-answer"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+          placeholder="数字を入力"
+        />
+        <p style="display: inline;">回</p>
+        <button onclick="q4CheckAnswer()">答える</button>
+        <p id="q4-result"></p>
+      </section>
+      <section class="l_question js_final-question">
+        <p class="final-question m_question_p">Q1のQ2をQ4回Q3せよ。</p>
+        <p class="js_hint">クリックカウント<span id="click">0</span></p>
+      </section>
+    </div>
+    <div class="card-zone">
+      <div class="card" draggable="true" id="card-5" ondragstart="drag(event)">
+        5♥
+      </div>
+      <div class="card" draggable="true" id="card-8" ondragstart="drag(event)">
+        8♦
+      </div>
+      <div class="card" draggable="true" id="card-10" ondragstart="drag(event)">
+        10♣
+      </div>
+      <div
+        class="card"
+        draggable="true"
+        id="card-J"
+        ondragstart="drag(event)"
+        onclick="handleCardClick()"
+      >
+        J♣
+      </div>
+      <div class="card" draggable="true" id="card-Q" ondragstart="drag(event)">
+        Q♦
+      </div>
+      <div class="card" draggable="true" id="card-K" ondragstart="drag(event)">
+        K♥
+      </div>
+      <div class="card" draggable="true" id="card-A" ondragstart="drag(event)">
+        A♠
+      </div>
+
+      <script>
+        const answerChars = ["タ", "ッ", "プ"];
+        const droppedFlags = [false, false, false];
+
+        function allowDrop(ev) {
+          ev.preventDefault();
+        }
+
+        function drag(ev) {
+          ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function dropHeart(ev, index) {
+          ev.preventDefault();
+          const data = ev.dataTransfer.getData("text");
+          const card = document.getElementById(data);
+          const heart = document.getElementById("heart" + index);
+
+          if (card.id === "card-8" && !droppedFlags[index]) {
+            droppedFlags[index] = true;
+            heart.classList.add("break");
+
+            /* 🔊失恋音再生 */
+            brakeHeart();
+
+            setTimeout(() => {
+              const span = document.createElement("span");
+              span.className = "reveal";
+              span.textContent = answerChars[index];
+              heart.appendChild(span);
+            }, 600);
+
+            checkAnswer();
+          } else {
+            document.getElementById("q3-result").textContent =
+              "そのカードでは♡は切れないようだ…";
+          }
+        }
+
+        function checkAnswer() {
+          if (droppedFlags.every((f) => f)) {
+            document.getElementById("q3-result").textContent =
+              "答えが見えたようだね。ところで君は大貧民かな？それじゃー大富豪の“彼”にその２枚を渡さないと(笑)";
+          }
+        }
+
+        let droppedCards = new Set();
+        function dropCard(event) {
+          event.preventDefault();
+          let cardId = event.dataTransfer.getData("text/plain");
+          const magician = document.querySelector(".js_magician");
+          magician.classList.add("is-active");
+
+          if (cardId === "card-K" || cardId === "card-A") {
+            droppedCards.add(cardId); // セットに追加（重複しない）
+
+            // ドロップ先に表示（演出用）
+            let card = document.getElementById(cardId);
+            event.target.appendChild(card);
+
+            // 両方そろったら次の問題表示
+            if (droppedCards.has("card-K") && droppedCards.has("card-A")) {
+              document
+                .querySelector(".js_final-question")
+                .classList.toggle("is-active");
+            }
+          }
+        }
+      </script>
+    </div>
+    <script>
+      function q4CheckAnswer() {
+        const input = Number(document.getElementById("q4-answer").value);
+        const result = document.getElementById("q4-result");
+
+        if (input == q4AnswerValue) {
+          const nextQuestionEl = document.querySelector(".js_final-question");
+          if (nextQuestionEl.classList.contains("is-active")) {
+            // 表示されている
+            result.textContent =
+              "これでキーワードはそろった。次の指示にしたがうのだ。";
+          } else {
+            // 非表示
+            result.textContent =
+              "これでキーワードはそろった。、、、次の指示がないって？何か見落としているんじゃないか？";
+          }
+        } else {
+          result.textContent =
+            "答えが違うようだ…耳を澄ませもう一度過去を振り返るがいい。";
+          /* 🔊失恋音再生 */
+          brakeHeart();
+          /* ミスカウント */
+          addMistake();
+        }
+      }
+    </script>
+  </body>
+</html>
