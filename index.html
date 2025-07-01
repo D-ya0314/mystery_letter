@@ -70,10 +70,10 @@
           .toLowerCase();
         const result = document.getElementById("q0-result");
 
-        if (input === "letter") {
+        if (input === "letter" || input === "レター") {
           location.href = "letter.html";
         } else {
-          result.textContent = "違うようだ…。" + input;
+          result.textContent = "違うようだ…。";
         }
       }
     </script>
