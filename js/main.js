@@ -21,17 +21,20 @@ function brakeHeart() {
 
 /*-------- タップ（クリック）カウント ---------*/
 let clickCount = 0;
+const nextQuestionEl = document.querySelector(".js_final-question");
 function handleCardClick() {
-  clickCount++;
-  // タイマーをリセットして再スタート
-  setTimeout(() => {
-    clickCount = 0;
-  }, 5000);
-  document.getElementById("click").textContent = clickCount;
+  if (nextQuestionEl.classList.contains("is-active") && nextQuestionEl.classList.contains("is-license")) {
+    clickCount++;
+    // タイマーをリセットして再スタート
+    setTimeout(() => {
+      clickCount = 0;
+    }, 5000);
+    document.getElementById("click").textContent = clickCount;
 
-  if (clickCount == q4AnswerValue) {
-    // 遷移
-    window.location.href = "clear.html"; // ← ここを遷移先に変更
+    if (clickCount == q4AnswerValue) {
+      // 遷移
+      window.location.href = "clear.html"; // ← ここを遷移先に変更
+    }
   }
 }
 
@@ -42,8 +45,8 @@ const title = document.querySelector(".m_title");
 title.addEventListener("click", () => {
   titleClick++;
   if (titleClick === 5) {
-    hint.forEach(el => {
-    el.classList.toggle("is-active");
+    hint.forEach((el) => {
+      el.classList.toggle("is-active");
     });
   }
   // タイマーをリセットして再スタート
