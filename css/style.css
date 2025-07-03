@@ -223,6 +223,30 @@ button:active {
   }
 }
 
+#q2 {
+  display: none;
+}
+
+#q2.is-active {
+  display: inline-block;
+}
+
+#q3 {
+  display: none;
+}
+
+#q3.is-active {
+  display: inline-block;
+}
+
+#q4 {
+  display: none;
+}
+
+#q4.is-active {
+  display: inline-block;
+}
+
 .js_final-question {
   display: none;
   font-size: 32px;
@@ -231,6 +255,10 @@ button:active {
 
 .js_final-question.is-active {
   display: block;
+}
+
+.js_final-question.is-license {
+
 }
 
 .js_magician.is-active {

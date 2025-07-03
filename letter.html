@@ -50,8 +50,8 @@
   <body class="js_body">
     <div class="letter">
       <p class="js_hint">ミス回数：<span id="mistakeCountDisplay">0</span></p>
-
       <p class="js_hint">Q4回答：<span id="q4AnswerValueDisplay">0</span></p>
+      <p class="js_hint">クリックカウント<span id="click">0</span></p>
 
       <h1 class="m_title">
         <span
@@ -107,6 +107,7 @@
 
           if (input === "クラブ" || input === "くらぶ") {
             result.textContent = "正解だ…。次の謎に進め。";
+            document.getElementById("q2").classList.add("is-active");
             // location.href = "next.html"; // ページ移動させたいならこれ
           } else {
             result.textContent = "違うようだ…。もう一度試せ。";
@@ -117,7 +118,7 @@
           }
         }
       </script>
-      <section class="l_question">
+      <section class="l_question" id="q2">
         <p class="m_question_p">
           Q2.手札に潜む言葉…君に読み解けるか？<br />『11　1　c　13』
         </p>
@@ -137,6 +138,7 @@
           if (input === "jack") {
             result.textContent =
               "正解だ...。君もまた、“彼”と同じ札を握ったようだな…。";
+            document.getElementById("q3").classList.add("is-active");
           } else {
             result.textContent =
               "答えが違うようだ…もう一度手札を見直すがいい。";
@@ -147,7 +149,7 @@
           }
         }
       </script>
-      <section class="l_question">
+      <section class="l_question" id="q3">
         <p class="m_question_p">
           Q3.三股がバれてしまった！？修羅場を切り抜けなければ、、、。冗談はさておき、君にはこの場を切ることができるかな？
         </p>
@@ -179,7 +181,7 @@
         </div>
         <p id="q3-result"></p>
       </section>
-      <section class="l_question">
+      <section class="l_question" id="q4">
         <p class="m_question_p">
           Q4.実はこの手紙はラブレター、、、なんてね。ところで失恋した回数は何回なんだい？<br />それにしても失恋とは悲しいことだ。時にはリセット↻して目の前のものに耳をかたむける必要があるかもしれない...
         </p>
@@ -197,7 +199,6 @@
       </section>
       <section class="l_question js_final-question">
         <p class="final-question m_question_p">Q1のQ2をQ4回Q3せよ。</p>
-        <p class="js_hint">クリックカウント<span id="click">0</span></p>
       </section>
     </div>
     <div class="card-zone">
@@ -264,7 +265,7 @@
             checkAnswer();
           } else {
             document.getElementById("q3-result").textContent =
-              "そのカードでは♡は切れないようだ…";
+              "そのカードでは切れないようだ…";
           }
         }
 
@@ -272,6 +273,7 @@
           if (droppedFlags.every((f) => f)) {
             document.getElementById("q3-result").textContent =
               "答えが見えたようだね。ところで君は大貧民かな？それじゃー大富豪の“彼”にその２枚を渡さないと(笑)";
+            document.getElementById("q4").classList.add("is-active");
           }
         }
 
@@ -283,17 +285,20 @@
           magician.classList.add("is-active");
 
           if (cardId === "card-K" || cardId === "card-A") {
-            droppedCards.add(cardId); // セットに追加（重複しない）
+            const q3Id = document.getElementById("q3");
+            if (q3Id.classList.contains("is-active")) {
+              droppedCards.add(cardId); // セットに追加（重複しない）
 
-            // ドロップ先に表示（演出用）
-            let card = document.getElementById(cardId);
-            event.target.appendChild(card);
+              // ドロップ先に表示（演出用）
+              let card = document.getElementById(cardId);
+              event.target.appendChild(card);
 
-            // 両方そろったら次の問題表示
-            if (droppedCards.has("card-K") && droppedCards.has("card-A")) {
-              document
-                .querySelector(".js_final-question")
-                .classList.toggle("is-active");
+              // 両方そろったら次の問題表示
+              if (droppedCards.has("card-K") && droppedCards.has("card-A")) {
+                document
+                  .querySelector(".js_final-question")
+                  .classList.toggle("is-active");
+              }
             }
           }
         }
@@ -310,14 +315,20 @@
             // 表示されている
             result.textContent =
               "これでキーワードはそろった。次の指示にしたがうのだ。";
+              document
+                  .querySelector(".js_final-question")
+                  .classList.toggle("is-license");
           } else {
             // 非表示
             result.textContent =
               "これでキーワードはそろった。、、、次の指示がないって？何か見落としているんじゃないか？";
+              document
+                  .querySelector(".js_final-question")
+                  .classList.toggle("is-license");
           }
         } else {
           result.textContent =
-            "答えが違うようだ…耳を澄ませもう一度過去を振り返るがいい。";
+            "答えが違うようだ…あぁ、また貧弱なガラスのハートが割れてしまった。君には聞こえなかったのかい？";
           /* 🔊失恋音再生 */
           brakeHeart();
           /* ミスカウント */
