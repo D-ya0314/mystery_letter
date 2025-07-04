@@ -1,5 +1,17 @@
 "use strict";
 
+/*---------- 幕開け ----------*/
+function start() {
+  document.querySelector(".start").classList.add("is-disable");
+  document.getElementById("intro-text").classList.add("is-active");
+  document.getElementById("don-sound").play();
+  // 「どん」の演出が終わったらメインを表示
+  setTimeout(() => {
+    document.getElementById("intro-overlay").style.display = "none";
+    document.querySelector(".l_question0").classList.add("is-active");
+  }, 2000); // 2秒後に切り替え
+}
+
 /*---------- ミスカウント ----------*/
 let mistakeCount = 0; // ← 合計カウント変数
 function addMistake() {
@@ -23,7 +35,10 @@ function brakeHeart() {
 let clickCount = 0;
 const nextQuestionEl = document.querySelector(".js_final-question");
 function handleCardClick() {
-  if (nextQuestionEl.classList.contains("is-active") && nextQuestionEl.classList.contains("is-license")) {
+  if (
+    nextQuestionEl.classList.contains("is-active") &&
+    nextQuestionEl.classList.contains("is-license")
+  ) {
     clickCount++;
     // タイマーをリセットして再スタート
     setTimeout(() => {

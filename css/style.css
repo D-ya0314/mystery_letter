@@ -42,6 +42,66 @@ body {
   background-size: cover;
 }
 
+.start {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.start.is-disable {
+  display: none;
+}
+
+/* 初期状態の真っ黒な背景 */
+#intro-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--black-color);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 「どん」のテキスト */
+#intro-text {
+  display: none;
+}
+
+#intro-text.is-active {
+  color: var(--white-color);
+  display: block;
+  font-size: 5rem;
+  font-weight: bold;
+  opacity: 0;
+  transform: scale(0.5);
+  animation: donEffect 1s ease-out forwards;
+}
+
+/* アニメーション */
+@keyframes donEffect {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  10% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
 .m_title {
   font-size: 24px;
   font-weight: bold;
@@ -59,6 +119,12 @@ p {
 
 .l_question0 {
   text-align: center;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.l_question0.is-active {
+  opacity: 1;
 }
 
 .m_question_p {
@@ -140,6 +206,10 @@ button:active {
   /* background-color: #fff0f5; */
   position: relative;
   /* overflow: hidden; */
+}
+
+.drop-disabled {
+  pointer-events: none;
 }
 
 .heart-content {
@@ -258,7 +328,6 @@ button:active {
 }
 
 .js_final-question.is-license {
-
 }
 
 .js_magician.is-active {

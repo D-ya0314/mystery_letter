@@ -55,7 +55,7 @@
 
       <h1 class="m_title">
         <span
-          class="js_magician"
+          class="js_magician drop-disabled"
           id="magician"
           ondrop="dropCard(event)"
           ondragover="allowDrop(event)"
@@ -94,7 +94,7 @@
           <p class="m_q1_p">○○○</p>
         </div>
         <input type="text" id="q1-answer" placeholder="ここに答えを入力" />
-        <button onclick="q1CheckAnswer()">答える</button>
+        <button id="q1-btn" onclick="q1CheckAnswer()">答える</button>
         <p id="q1-result"></p>
       </section>
       <script>
@@ -262,6 +262,8 @@
               heart.appendChild(span);
             }, 600);
 
+            heart.classList.add("drop-disabled");
+
             checkAnswer();
           } else {
             document.getElementById("q3-result").textContent =
@@ -274,6 +276,8 @@
             document.getElementById("q3-result").textContent =
               "答えが見えたようだね。ところで君は大貧民かな？それじゃー大富豪の“彼”にその２枚を渡さないと(笑)";
             document.getElementById("q4").classList.add("is-active");
+            const magician = document.querySelector(".js_magician");
+            magician.classList.remove("drop-disabled");
           }
         }
 
@@ -298,6 +302,7 @@
                 document
                   .querySelector(".js_final-question")
                   .classList.toggle("is-active");
+                magician.classList.add("drop-disabled");
               }
             }
           }
@@ -315,16 +320,16 @@
             // 表示されている
             result.textContent =
               "これでキーワードはそろった。次の指示にしたがうのだ。";
-              document
-                  .querySelector(".js_final-question")
-                  .classList.toggle("is-license");
+            document
+              .querySelector(".js_final-question")
+              .classList.toggle("is-license");
           } else {
             // 非表示
             result.textContent =
               "これでキーワードはそろった。、、、次の指示がないって？何か見落としているんじゃないか？";
-              document
-                  .querySelector(".js_final-question")
-                  .classList.toggle("is-license");
+            document
+              .querySelector(".js_final-question")
+              .classList.toggle("is-license");
           }
         } else {
           result.textContent =
