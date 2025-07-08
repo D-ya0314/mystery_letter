@@ -22,7 +22,7 @@ window.addEventListener("DOMContentLoaded", () => {
 let mistakeCount = 0; // ← 合計カウント変数
 function addMistake() {
   mistakeCount++;
-  localStorage.setItem("mistakeCount", mistakeCount);
+  // localStorage.setItem("mistakeCount", mistakeCount);
   document.getElementById("mistakeCountDisplay").textContent = mistakeCount;
 }
 
@@ -65,12 +65,12 @@ function handleCardClick() {
 
 /*-------- ヒント表示 ---------*/
 let titleClick = 0;
-const hint = document.querySelectorAll(".js_hint");
+const hints = document.querySelectorAll(".js_hint");
 const title = document.querySelector(".m_title");
 title.addEventListener("click", () => {
   titleClick++;
   if (titleClick === 5) {
-    hint.forEach((el) => {
+    hints.forEach((el) => {
       el.classList.toggle("is-active");
     });
   }
@@ -79,6 +79,12 @@ title.addEventListener("click", () => {
     titleClick = 0;
   }, 3000);
 });
+
+function hint() {
+  hints.forEach((el) => {
+    el.classList.toggle("is-active");
+  });
+}
 
 /*-------- 回答アクション ---------*/
 // q0
@@ -113,10 +119,10 @@ function q1CheckAnswer() {
     // location.href = "next.html"; // ページ移動させたいならこれ
   } else {
     result.textContent = "違うようだ…。もう一度試せ。";
-    /* 🔊失恋音再生 */
-    brakeHeart();
     /* ミスカウント */
     addMistake();
+    /* 🔊失恋音再生 */
+    brakeHeart();
   }
 }
 
@@ -135,10 +141,10 @@ function q2CheckAnswer() {
     answer.classList.add("is-disable");
   } else {
     result.textContent = "答えが違うようだ…もう一度手札を見直すがいい。";
-    /* 🔊失恋音再生 */
-    brakeHeart();
     /* ミスカウント */
     addMistake();
+    /* 🔊失恋音再生 */
+    brakeHeart();
   }
 }
 
@@ -246,10 +252,10 @@ function q4CheckAnswer() {
   } else {
     result.textContent =
       "答えが違うようだ…あぁ、また貧弱なガラスのハートが割れてしまった。君には聞こえなかったのかい？";
-    /* 🔊失恋音再生 */
-    brakeHeart();
     /* ミスカウント */
     addMistake();
+    /* 🔊失恋音再生 */
+    brakeHeart();
   }
 }
 
@@ -284,6 +290,7 @@ navigation.addEventListener("click", () => {
   if (window.innerWidth < 1080) {
     hamburger.classList.toggle("is-active");
     navigation.classList.toggle("is-active");
+    // body.classList.toggle("is-active");
     if (body.classList.contains("is-active")) {
       enableScroll();
     } else {

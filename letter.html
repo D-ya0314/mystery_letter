@@ -50,29 +50,28 @@
     <audio id="buon" src="audio/buon.mp3" preload="auto"></audio>
   </head>
   <body class="js_body">
-    <div id="fadein-overlay"></div>
-    <div id="fadeout-overlay"></div>
-    <!-- <header class="l_header js_header">
+    <header class="l_header js_header">
       <h1 class="l_header_logo">
-        <a href="" class="l_header_link">Mistery</a>
+        <a href="" class="l_header_link">Mystery</a>
       </h1>
       <nav class="l_header-nav js_nav">
         <ul class="l_header-nav_list">
           <li class="l_header-nav_item">
-            <a href="index.html" class="l_header-nav_link">さいしょから</a>
+            <a href="index.html" class="l_header-nav_link">はじめから</a>
           </li>
           <li class="l_header-nav_item">
-            <a href="" class="l_header-nav_link">ヒント</a>
+            <a href="letter.html" class="l_header-nav_link"
+              >手紙の世界へ入った直後から</a
+            >
           </li>
           <li class="l_header-nav_item">
-            <a href="letter.html" class="l_header-nav_link">手紙の世界入った直後</a>
+            <button class="l_header-nav_link" onclick="hint()">ヒント</button>
           </li>
-          <li class="l_header-nav_item">
-            <a href="clear.html" class="l_header-nav_link">クリア後</a>
-          </li>
-          <li class="l_header-nav_item">
-            <a href="" class="l_header-nav_link">e</a>
-          </li>
+          <!-- <li class="l_header-nav_item">
+            <a href="clear.html" class="l_header-nav_link"
+              >元の世界へ戻った後</a
+            >
+          </li> -->
         </ul>
       </nav>
       <button class="m_hamburger js_hamburger">
@@ -80,12 +79,10 @@
         <span class="m_hamburger-bar"></span>
         <span class="m_hamburger-bar"></span>
       </button>
-    </header> -->
+    </header>
+    <div id="fadein-overlay"></div>
+    <div id="fadeout-overlay"></div>
     <div class="letter">
-      <p class="js_hint">ミス回数：<span id="mistakeCountDisplay">0</span></p>
-      <p class="js_hint">Q4回答：<span id="q4AnswerValueDisplay">0</span></p>
-      <p class="js_hint">クリックカウント<span id="click">0</span></p>
-
       <h1 class="m_title">
         <span
           class="js_magician drop-disabled"
@@ -126,8 +123,15 @@
           <p class="m_q1_p">→</p>
           <p class="m_q1_p">○○○</p>
         </div>
-        <input type="text" class="m_answer" id="q1-answer" placeholder="ここに答えを入力" />
-        <button class="m_answer_btn" id="q1-btn" onclick="q1CheckAnswer()">答える</button>
+        <input
+          type="text"
+          class="m_answer"
+          id="q1-answer"
+          placeholder="ここに答えを入力"
+        />
+        <button class="m_answer_btn" id="q1-btn" onclick="q1CheckAnswer()">
+          答える
+        </button>
         <p id="q1-result"></p>
       </section>
 
@@ -135,8 +139,15 @@
         <p class="m_question_p">
           Q2.手札に潜む言葉…君に読み解けるか？<br />『11　1　c　13』
         </p>
-        <input type="text" class="m_answer" id="q2-answer" placeholder="ここに答えを入力" />
-        <button class="m_answer_btn" id="q2-btn" onclick="q2CheckAnswer()">答える</button>
+        <input
+          type="text"
+          class="m_answer"
+          id="q2-answer"
+          placeholder="ここに答えを入力"
+        />
+        <button class="m_answer_btn" id="q2-btn" onclick="q2CheckAnswer()">
+          答える
+        </button>
         <p id="q2-result"></p>
       </section>
 
@@ -186,7 +197,9 @@
           placeholder="数字を入力"
         />
         <p style="display: inline">回</p>
-        <button class="m_answer_btn" id="q4-btn" onclick="q4CheckAnswer()">答える</button>
+        <button class="m_answer_btn" id="q4-btn" onclick="q4CheckAnswer()">
+          答える
+        </button>
         <p id="q4-result"></p>
       </section>
       <section class="l_question" id="qf">
@@ -222,5 +235,49 @@
         A♠
       </div>
     </div>
+    <div class="js_hint">
+      <p class="js_hint_p">カードを掴むこと可能</p>
+      <p class="js_hint_p">ミス回数：<span id="mistakeCountDisplay">0</span></p>
+      <!-- <p class="js_hint_p">Q4回答：<span id="q4AnswerValueDisplay">0</span></p> -->
+      <p class="js_hint_p">クリックカウント：<span id="click">0</span></p>
+    </div>
+    <footer class="l_footer">
+      <div class="l_footer_box">
+        <nav class="l_footer-nav">
+          <ul class="l_footer-nav_list">
+            <li class="l_footer-nav_item">
+              <a href="index.html" class="l_footer-nav_link">はじめから</a>
+            </li>
+            <li class="l_footer-nav_item">
+              <a href="letter.html" class="l_footer-nav_link"
+                >手紙の世界へ入った直後から</a
+              >
+            </li>
+            <li class="l_footer-nav_item">
+              <button class="l_footer-nav_link" onclick="hint()">ヒント</button>
+            </li>
+            <li class="l_footer-nav_item">
+              <a href="clear.html" class="l_footer-nav_link"
+                >元の世界へ戻った後</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <div class="l_footer_logo">
+          <a href="index.html" class="l_footer_link">
+            <img
+              src="img/logo.png"
+              alt=""
+              class="l_footer_link-img"
+              width="500"
+              height="500"
+            />
+          </a>
+        </div>
+      </div>
+      <p class="l_footer-copyright">
+        <small class="l_footer-copyright_txt">D-ya</small>
+      </p>
+    </footer>
   </body>
 </html>

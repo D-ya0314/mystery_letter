@@ -375,7 +375,18 @@ p {
   display: none;
 }
 .js_hint.is-active {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--accent-color);
+  color: var(--white-color);
+  gap: 16px;
+  padding: 8px 8px;
+  height: 56px;
+}
+
+.js_hint_p {
+  margin-top: 0;
 }
 
 /* ---------- layout ---------- */
@@ -419,7 +430,8 @@ p {
   align-items: center;
   height: 48px;
   width: 100%;
-  background: #aaaaaa5a;
+  background: #aaaaaabf;
+  position: sticky;
   top: 0;
   z-index: var(--z-index-header);
   transition: transform 0.3s ease-in-out; /* スムーズな動き */
@@ -559,7 +571,7 @@ p {
   height: 200px;
   width: 100%;
   padding: 40px 0;
-  background-color: var(--white-color);
+  background-color: var(--gray-color);
 }
 
 @media screen and (min-width: 768px) {
@@ -698,6 +710,7 @@ p {
   position: relative;
   width: 32px;
   height: 24px;
+  background-color: #00000000;
 }
 
 @media screen and (min-width: 1080px) {
