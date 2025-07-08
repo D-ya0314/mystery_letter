@@ -102,6 +102,29 @@ body {
   }
 }
 
+#fadeout-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--black-color);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 3s ease;
+}
+
+#fadein-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--white-color);
+  z-index: 9999;
+}
+
 .m_title {
   font-size: 24px;
   font-weight: bold;
@@ -140,9 +163,15 @@ p {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   background: url("../img/old_letter.jpeg") no-repeat center center;
   background-size: cover;
+  opacity: 0;
 }
 
-input {
+.letter.is-active {
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.m_answer {
   padding: 0.5em;
   width: 200px;
   border: solid 1px var(--gray-color);
@@ -151,7 +180,12 @@ input {
   font-size: 14px;
 }
 
-button {
+.m_answer.is-disable {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.m_answer_btn {
   padding: 0.5em 1em;
   margin-top: 1em;
   border: solid 1px var(--gray-color);
@@ -162,13 +196,29 @@ button {
   font-size: 14px;
 }
 
-button:active {
+.m_answer_btn:active {
   box-shadow: none;
   transform: translate(2px, 2px);
 }
 
+.m_answer_btn.is-disable {
+  background-color: var(--gray-color);
+  color: var(--gray-color02);
+  cursor: not-allowed;
+  pointer-events: none;
+  box-shadow: none;
+}
+
 .l_question {
   margin-top: 40px;
+}
+
+.l_question:nth-of-type(n + 2) {
+  display: none;
+}
+
+.l_question.is-active {
+  display: block;
 }
 
 .l_q1_content {
@@ -293,41 +343,9 @@ button:active {
   }
 }
 
-#q2 {
-  display: none;
-}
-
-#q2.is-active {
-  display: inline-block;
-}
-
-#q3 {
-  display: none;
-}
-
-#q3.is-active {
-  display: inline-block;
-}
-
-#q4 {
-  display: none;
-}
-
-#q4.is-active {
-  display: inline-block;
-}
-
-.js_final-question {
-  display: none;
+#qf {
   font-size: 32px;
   text-align: center;
-}
-
-.js_final-question.is-active {
-  display: block;
-}
-
-.js_final-question.is-license {
 }
 
 .js_magician.is-active {
@@ -384,8 +402,7 @@ button:active {
   align-items: center;
   height: 48px;
   width: 100%;
-  background: transparent;
-  position: sticky;
+  background: #aaaaaa5a;
   top: 0;
   z-index: var(--z-index-header);
   transition: transform 0.3s ease-in-out; /* スムーズな動き */

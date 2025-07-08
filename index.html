@@ -45,17 +45,19 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 
     <!-- audio -->
-    <audio id="seCut" src="audio/break-heart.mp3" preload="auto"></audio>
+    <audio id="break-heart" src="audio/break-heart.mp3" preload="auto"></audio>
     <audio id="don-sound" src="audio/don.mp3" preload="auto"></audio>
+    <audio id="buon" src="audio/buon.mp3" preload="auto"></audio>
   </head>
   <body class="js_body">
     <div class="start">
-      <button onclick="start()">スタート</button>
+      <button class="m_answer_btn" onclick="start()">スタート</button>
     </div>
     <!-- 黒い全画面レイヤー -->
     <div id="intro-overlay">
       <div id="intro-text">ドン！</div>
     </div>
+    <div id="fadeout-overlay"></div>
     <div class="l_question0">
       <div class="l_contents l_container-sm">
         <p>うっ...</p>
@@ -64,28 +66,18 @@
         <p>“彼”は何を伝えたかったのだろう...？</p>
         <p>紙には次のメッセージが書かれていた。</p>
       </div>
-      <div class="letter">
+      <div class="letter is-active">
         <p class="message">Loudly Echoes The Tiny Encrypted Request.</p>
       </div>
 
-      <input type="text" id="q0-answer" placeholder="ここに答えを入力" />
-      <button onclick="q0CheckAnswer()">答える</button>
+      <input
+        type="text"
+        id="q0-answer"
+        class="m_answer"
+        placeholder="ここに答えを入力"
+      />
+      <button class="m_answer_btn" onclick="q0CheckAnswer()">答える</button>
       <p id="q0-result"></p>
     </div>
-    <script>
-      function q0CheckAnswer() {
-        const input = document
-          .getElementById("q0-answer")
-          .value.trim()
-          .toLowerCase();
-        const result = document.getElementById("q0-result");
-
-        if (input === "letter" || input === "レター") {
-          location.href = "letter.html";
-        } else {
-          result.textContent = "違うようだ…。";
-        }
-      }
-    </script>
   </body>
 </html>

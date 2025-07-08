@@ -12,6 +12,14 @@ function start() {
   }, 2000); // 2秒後に切り替え
 }
 
+window.addEventListener("DOMContentLoaded", () => {
+  // 明るくして本文表示
+  setTimeout(() => {
+    document.getElementById("fadein-overlay").style.display = "none";
+    document.querySelector(".letter").classList.toggle("is-active");
+  }, 400);
+});
+
 /*---------- ミスカウント ----------*/
 let mistakeCount = 0; // ← 合計カウント変数
 function addMistake() {
@@ -23,21 +31,21 @@ function addMistake() {
 /*--------- 🔊失恋音再生 ---------*/
 let q4AnswerValue = 0;
 function brakeHeart() {
-  const se = document.getElementById("seCut");
-  se.currentTime = 0; // 同じ音を連続再生可能に
-  se.play();
+  const bh = document.getElementById("break-heart");
+  bh.currentTime = 0; // 同じ音を連続再生可能に
+  bh.play();
   q4AnswerValue++;
-  localStorage.setItem("q4AnswerValue", q4AnswerValue);
   document.getElementById("q4AnswerValueDisplay").textContent = q4AnswerValue;
 }
 
 /*-------- タップ（クリック）カウント ---------*/
 let clickCount = 0;
-const nextQuestionEl = document.querySelector(".js_final-question");
+const qf = document.getElementById("qf");
+const fOverlay = document.getElementById("fadeout-overlay");
 function handleCardClick() {
   if (
-    nextQuestionEl.classList.contains("is-active") &&
-    nextQuestionEl.classList.contains("is-license")
+    qf.classList.contains("is-active") &&
+    qf.classList.contains("is-license")
   ) {
     clickCount++;
     // タイマーをリセットして再スタート
@@ -48,7 +56,11 @@ function handleCardClick() {
 
     if (clickCount == q4AnswerValue) {
       // 遷移
-      window.location.href = "clear.html"; // ← ここを遷移先に変更
+      fOverlay.style.opacity = 1;
+      document.getElementById("buon").play();
+      setTimeout(() => {
+        window.location.href = "clear.html"; // ← ここを遷移先に変更
+      }, 3000);
     }
   }
 }
@@ -69,6 +81,186 @@ title.addEventListener("click", () => {
     titleClick = 0;
   }, 3000);
 });
+
+/*-------- 回答アクション ---------*/
+// q0
+function q0CheckAnswer() {
+  const input = document.getElementById("q0-answer").value.trim().toLowerCase();
+  const result = document.getElementById("q0-result");
+
+  if (input === "letter" || input === "レター") {
+    fOverlay.style.opacity = 1;
+    document.getElementById("buon").play();
+    setTimeout(() => {
+      location.href = "letter.html";
+    }, 3000);
+  } else {
+    result.textContent = "違うようだ…。";
+  }
+}
+
+// q1
+function q1CheckAnswer() {
+  const input = document.getElementById("q1-answer").value.trim().toLowerCase();
+  const result = document.getElementById("q1-result");
+  const q = document.getElementById("q2");
+  const btn = document.getElementById("q1-btn");
+  const answer = document.getElementById("q1-answer");
+
+  if (input === "クラブ" || input === "くらぶ") {
+    result.textContent = "正解だ…。次の謎に進め。";
+    q.classList.add("is-active");
+    btn.classList.add("is-disable");
+    answer.classList.add("is-disable");
+    // location.href = "next.html"; // ページ移動させたいならこれ
+  } else {
+    result.textContent = "違うようだ…。もう一度試せ。";
+    /* 🔊失恋音再生 */
+    brakeHeart();
+    /* ミスカウント */
+    addMistake();
+  }
+}
+
+// q2
+function q2CheckAnswer() {
+  const input = document.getElementById("q2-answer").value.trim().toLowerCase();
+  const result = document.getElementById("q2-result");
+  const q = document.getElementById("q3");
+  const btn = document.getElementById("q2-btn");
+  const answer = document.getElementById("q2-answer");
+
+  if (input === "jack") {
+    result.textContent = "正解だ...。君もまた、“彼”と同じ札を握ったようだな…。";
+    q.classList.add("is-active");
+    btn.classList.add("is-disable");
+    answer.classList.add("is-disable");
+  } else {
+    result.textContent = "答えが違うようだ…もう一度手札を見直すがいい。";
+    /* 🔊失恋音再生 */
+    brakeHeart();
+    /* ミスカウント */
+    addMistake();
+  }
+}
+
+// q3
+const answerChars = ["タ", "ッ", "プ"];
+const droppedFlags = [false, false, false];
+const magician = document.querySelector(".js_magician");
+
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function dropHeart(ev, index) {
+  ev.preventDefault();
+  const data = ev.dataTransfer.getData("text");
+  const card = document.getElementById(data);
+  const heart = document.getElementById("heart" + index);
+  const result = document.getElementById("q3-result");
+
+  if (card.id === "card-8" && !droppedFlags[index]) {
+    droppedFlags[index] = true;
+    heart.classList.add("break");
+
+    /* 🔊失恋音再生 */
+    brakeHeart();
+
+    setTimeout(() => {
+      const span = document.createElement("span");
+      span.className = "reveal";
+      span.textContent = answerChars[index];
+      heart.appendChild(span);
+    }, 600);
+
+    heart.classList.add("drop-disabled");
+
+    if (droppedFlags.every((f) => f)) {
+      result.textContent =
+        "答えが見えたようだね。ところで君は大貧民かな？それじゃー大富豪の“彼”にその２枚を渡さないと(笑)";
+      document.getElementById("q4").classList.add("is-active");
+      magician.classList.remove("drop-disabled");
+    }
+  } else {
+    result.textContent = "そのカードでは切れないようだ…";
+  }
+}
+
+let droppedCards = new Set();
+function dropCard(event) {
+  event.preventDefault();
+  let cardId = event.dataTransfer.getData("text/plain");
+  magician.classList.add("is-active");
+
+  if (cardId === "card-K" || cardId === "card-A") {
+    const q3Id = document.getElementById("q3");
+    if (q3Id.classList.contains("is-active")) {
+      droppedCards.add(cardId); // セットに追加（重複しない）
+
+      // ドロップ先に表示（演出用）
+      let card = document.getElementById(cardId);
+      event.target.appendChild(card);
+
+      // 両方そろったら次の問題表示
+      if (droppedCards.has("card-K") && droppedCards.has("card-A")) {
+        qf.classList.toggle("is-active");
+        magician.classList.add("drop-disabled");
+        if (qf.classList.contains("is-license")) {
+          const q4result = document.getElementById("q4-result");
+          q4result.textContent =
+            "これでキーワードはそろった。次の指示にしたがうのだ。";
+        }
+      }
+    }
+  }
+}
+
+// q4
+function q4CheckAnswer() {
+  const input = Number(document.getElementById("q4-answer").value);
+  const result = document.getElementById("q4-result");
+  const btn = document.getElementById("q4-btn");
+  const answer = document.getElementById("q4-answer");
+
+  if (input == q4AnswerValue) {
+    if (qf.classList.contains("is-active")) {
+      // 表示されている
+      result.textContent =
+        "これでキーワードはそろった。次の指示にしたがうのだ。";
+      qf.classList.toggle("is-license");
+      btn.classList.add("is-disable");
+      answer.classList.add("is-disable");
+      answer.setAttribute("readonly", true);
+    } else {
+      // 非表示
+      result.textContent =
+        "これでキーワードはそろった。、、、次の指示がないって？何か見落としているんじゃないか？";
+      qf.classList.toggle("is-license");
+      btn.classList.add("is-disable");
+      answer.classList.add("is-disable");
+      answer.setAttribute("readonly", true);
+    }
+  } else {
+    result.textContent =
+      "答えが違うようだ…あぁ、また貧弱なガラスのハートが割れてしまった。君には聞こえなかったのかい？";
+    /* 🔊失恋音再生 */
+    brakeHeart();
+    /* ミスカウント */
+    addMistake();
+  }
+}
+
+/*---------- 紙を開く ----------*/
+function openLastPaper() {
+  const lastmessage = document.getElementById("lastmessage");
+  lastmessage.classList.add("is-active");
+}
+
 
 /*---------- ハンバーガーメニュー ----------*/
 const hamburger = document.querySelector(".js_hamburger");

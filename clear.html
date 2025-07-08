@@ -45,16 +45,28 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 
     <!-- audio -->
-    <audio id="seCut" src="audio/break-heart.mp3" preload="auto"></audio>
+    <audio id="break-heart" src="audio/break-heart.mp3" preload="auto"></audio>
+    <audio id="don-sound" src="audio/don.mp3" preload="auto"></audio>
+    <audio id="buon" src="audio/buon.mp3" preload="auto"></audio>
   </head>
   <body class="js_body">
-    <div class="letter">
-      <p class="m_title">
-        <br /><br /><br /><br />
-        よくここまで来たな！簡単すぎたか？？<br />手紙の世界から出してやろう。<br /><br /><br /><br /><br /><br /><br /><br />
-        次回も楽しみに待っていろ！！
-        <br /><br /><br /><br /><br />
-      </p>
+    <div id="fadein-overlay"></div>
+    <div class="l_question0 is-active">
+      <div class="l_contents l_container-sm">
+        <p>まぶしい...</p>
+        <p>気づいたらいつのまにか元の世界に戻っていた。</p>
+        <p>「ん？」</p>
+        <p>右手に紙が握られていた、、、<br /><br /><br /></p>
+        <button class="m_answer_btn" onclick="openLastPaper()">紙を開く</button>
+      </div>
+      <div id="lastmessage" class="letter is-active">
+        <p class="m_title">
+          <br /><br /><br /><br />
+          よく最後まで解けたな！簡単すぎたか？？<br /><br />仕方ないから手紙の世界から出してやった。<br /><br /><br /><br /><br /><br />
+          次回も楽しみに待っていろ！！
+          <br /><br /><br /><br />
+        </p>
+      </div>
     </div>
   </body>
 </html>
