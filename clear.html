@@ -48,6 +48,7 @@
     <audio id="break-heart" src="audio/break-heart.mp3" preload="auto"></audio>
     <audio id="don-sound" src="audio/don.mp3" preload="auto"></audio>
     <audio id="buon" src="audio/buon.mp3" preload="auto"></audio>
+    <audio id="open-letter" src="audio/open-letter.mp3" preload="auto"></audio>
   </head>
   <body class="js_body">
     <div id="fadein-overlay"></div>
@@ -57,7 +58,7 @@
         <p>気づいたらいつのまにか元の世界に戻っていた。</p>
         <p>「ん？」</p>
         <p>右手に紙が握られていた、、、<br /><br /><br /></p>
-        <button class="m_answer_btn" onclick="openLastPaper()">紙を開く</button>
+        <button class="m_answer_btn" id="op-btn" onclick="openLastPaper()">紙を開く</button>
       </div>
       <div id="lastmessage" class="letter is-active">
         <p class="m_title">

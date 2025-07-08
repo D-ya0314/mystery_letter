@@ -14,10 +14,8 @@ function start() {
 
 window.addEventListener("DOMContentLoaded", () => {
   // 明るくして本文表示
-  setTimeout(() => {
-    document.getElementById("fadein-overlay").style.display = "none";
-    document.querySelector(".letter").classList.toggle("is-active");
-  }, 400);
+  document.getElementById("fadein-overlay").classList.add("is-active");
+  document.querySelector(".letter").classList.toggle("is-active");
 });
 
 /*---------- ミスカウント ----------*/
@@ -258,9 +256,12 @@ function q4CheckAnswer() {
 /*---------- 紙を開く ----------*/
 function openLastPaper() {
   const lastmessage = document.getElementById("lastmessage");
-  lastmessage.classList.add("is-active");
-}
+  const btn = document.getElementById("op-btn");
 
+  lastmessage.classList.add("is-active");
+  btn.classList.add("is-disable");
+  document.getElementById("open-letter").play();
+}
 
 /*---------- ハンバーガーメニュー ----------*/
 const hamburger = document.querySelector(".js_hamburger");

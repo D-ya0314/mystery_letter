@@ -115,7 +115,7 @@ body {
   transition: opacity 3s ease;
 }
 
-#fadein-overlay {
+#fadein-overlay.is-active {
   position: fixed;
   top: 0;
   left: 0;
@@ -123,6 +123,23 @@ body {
   height: 100vh;
   background: var(--white-color);
   z-index: 9999;
+  animation: fadeinEffect 2s ease-out forwards;
+}
+
+@keyframes fadeinEffect {
+  0% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
 }
 
 .m_title {
