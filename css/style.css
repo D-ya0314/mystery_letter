@@ -568,7 +568,7 @@ p {
 
 /*footer*/
 .l_footer {
-  height: 200px;
+  height: 100%;
   width: 100%;
   padding: 40px 0;
   background-color: var(--gray-color);
