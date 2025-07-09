@@ -33,7 +33,7 @@ function brakeHeart() {
   bh.currentTime = 0; // 同じ音を連続再生可能に
   bh.play();
   q4AnswerValue++;
-  document.getElementById("q4AnswerValueDisplay").textContent = q4AnswerValue;
+  // document.getElementById("q4AnswerValueDisplay").textContent = q4AnswerValue;
 }
 
 /*-------- タップ（クリック）カウント ---------*/
