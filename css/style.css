@@ -361,6 +361,12 @@ p {
   }
 }
 
+.m_annke {
+  font-size: 24px;
+  color: blue;
+  border-bottom: solid 1px;
+}
+
 #qf {
   font-size: 32px;
   text-align: center;
