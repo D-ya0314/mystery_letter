@@ -16,6 +16,9 @@ window.addEventListener("DOMContentLoaded", () => {
   // 明るくして本文表示
   document.getElementById("fadein-overlay").classList.add("is-active");
   document.querySelector(".letter").classList.toggle("is-active");
+  setTimeout(() => {
+    document.getElementById("fadein-overlay").remove();
+  }, 2000);
 });
 
 /*---------- ミスカウント ----------*/
