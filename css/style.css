@@ -361,6 +361,22 @@ p {
   }
 }
 
+#q4-btn_h {
+  display: none;
+}
+
+#q4-btn_h.is-active {
+  display: block;
+}
+
+.q4_hint {
+  display: none;
+}
+
+.q4_hint.is-active {
+  display: block;
+}
+
 .m_annke {
   font-size: 24px;
   color: blue;

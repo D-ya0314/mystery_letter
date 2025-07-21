@@ -219,6 +219,12 @@ function dropCard(event) {
         magician.classList.add("drop-disabled");
         if (qf.classList.contains("is-license")) {
           const q4result = document.getElementById("q4-result");
+          const hbtn = document.getElementById("q4-btn_h");
+          const q4h = document.querySelectorAll(".q4_hint");
+          hbtn.classList.remove("is-active");
+          q4h.forEach((el) => {
+            el.classList.remove("is-active");
+          });
           q4result.textContent =
             "これでキーワードはそろった。次の指示にしたがうのだ。";
         }
@@ -233,6 +239,7 @@ function q4CheckAnswer() {
   const result = document.getElementById("q4-result");
   const btn = document.getElementById("q4-btn");
   const answer = document.getElementById("q4-answer");
+  const hbtn = document.getElementById("q4-btn_h");
 
   if (input == q4AnswerValue) {
     if (qf.classList.contains("is-active")) {
@@ -251,6 +258,7 @@ function q4CheckAnswer() {
       btn.classList.add("is-disable");
       answer.classList.add("is-disable");
       answer.setAttribute("readonly", true);
+      hbtn.classList.add("is-active");
     }
   } else {
     result.textContent =
@@ -259,6 +267,25 @@ function q4CheckAnswer() {
     addMistake();
     /* 🔊失恋音再生 */
     brakeHeart();
+  }
+}
+
+// q4_hint
+let q4HintClick = 0;
+function openhint() {
+  q4HintClick++;
+  if (q4HintClick == 1) {
+    const hint = document.getElementById("q4_hint_1");
+    hint.classList.add("is-active");
+  } else if (q4HintClick == 2) {
+    const hint = document.getElementById("q4_hint_2");
+    hint.classList.add("is-active");
+  } else if (q4HintClick == 3) {
+    const hint = document.getElementById("q4_hint_3");
+    hint.classList.add("is-active");
+  } else if (q4HintClick == 4) {
+    const hint = document.getElementById("q4_hint_4");
+    hint.classList.add("is-active");
   }
 }
 
