@@ -189,12 +189,18 @@ function dropHeart(ev, index) {
 
     if (droppedFlags.every((f) => f)) {
       result.textContent =
-        "答えが見えたようだね。ところで君は大貧民かな？それじゃー大富豪の“彼”にその２枚を渡さないと(笑)";
+        "うまく場を流せたみたいだな。でもその矢でハートを射抜けず、砕けたみたいだけど...さらに勝負に負けて大貧民!?wwそれじゃー大富豪の“彼”にその２枚を渡さないと(笑)";
       document.getElementById("q4").classList.add("is-active");
       magician.classList.remove("drop-disabled");
+      const hbtn = document.getElementById("q3-btn_h");
+      const q3h = document.querySelectorAll(".q_hint");
+      hbtn.classList.add("is-active");
+      q3h.forEach((el) => {
+        el.classList.remove("is-active");
+      });
     }
   } else {
-    result.textContent = "そのカードでは切れないようだ…";
+    result.textContent = "そのカードでは流せないようだ…";
   }
 }
 
@@ -219,10 +225,10 @@ function dropCard(event) {
         magician.classList.add("drop-disabled");
         if (qf.classList.contains("is-license")) {
           const q4result = document.getElementById("q4-result");
-          const hbtn = document.getElementById("q4-btn_h");
-          const q4h = document.querySelectorAll(".q4_hint");
+          const hbtn = document.getElementById("q5-btn_h");
+          const q5h = document.querySelectorAll(".q_hint");
           hbtn.classList.remove("is-active");
-          q4h.forEach((el) => {
+          q5h.forEach((el) => {
             el.classList.remove("is-active");
           });
           q4result.textContent =
@@ -239,7 +245,9 @@ function q4CheckAnswer() {
   const result = document.getElementById("q4-result");
   const btn = document.getElementById("q4-btn");
   const answer = document.getElementById("q4-answer");
-  const hbtn = document.getElementById("q4-btn_h");
+  const hbtn = document.getElementById("q5-btn_h");
+  const h4btn = document.getElementById("q4-btn_h");
+  const q4h = document.querySelectorAll(".q_hint");
 
   if (input == q4AnswerValue) {
     if (qf.classList.contains("is-active")) {
@@ -250,6 +258,10 @@ function q4CheckAnswer() {
       btn.classList.add("is-disable");
       answer.classList.add("is-disable");
       answer.setAttribute("readonly", true);
+      h4btn.classList.remove("is-active");
+      q4h.forEach((el) => {
+        el.classList.remove("is-active");
+      });
     } else {
       // 非表示
       result.textContent =
@@ -259,6 +271,10 @@ function q4CheckAnswer() {
       answer.classList.add("is-disable");
       answer.setAttribute("readonly", true);
       hbtn.classList.add("is-active");
+      h4btn.classList.add("is-active");
+      q4h.forEach((el) => {
+        el.classList.remove("is-active");
+      });
     }
   } else {
     result.textContent =
@@ -270,25 +286,76 @@ function q4CheckAnswer() {
   }
 }
 
-// q4_hint
+// q_hint
+let q3HintClick = 0;
 let q4HintClick = 0;
-function openhint() {
-  q4HintClick++;
-  if (q4HintClick == 1) {
-    const hint = document.getElementById("q4_hint_1");
-    hint.classList.add("is-active");
-  } else if (q4HintClick == 2) {
-    const hint = document.getElementById("q4_hint_2");
-    hint.classList.add("is-active");
-  } else if (q4HintClick == 3) {
-    const hint = document.getElementById("q4_hint_3");
-    hint.classList.add("is-active");
-  } else if (q4HintClick == 4) {
-    const hint = document.getElementById("q4_hint_4");
-    hint.classList.add("is-active");
+let q5HintClick = 0;
+function openhint(n) {
+  if (n === "q3") {
+    q3HintClick++;
+    const hint1 = document.getElementById("q3_hint_1");
+    const hint2 = document.getElementById("q3_hint_2");
+    const hint3 = document.getElementById("q3_hint_3");
+    const hint4 = document.getElementById("q3_hint_4");
+    if (q3HintClick == 1) {
+      hint1.classList.add("is-active");
+    } else if (q3HintClick == 2) {
+      hint2.classList.add("is-active");
+    } else if (q3HintClick == 3) {
+      hint3.classList.add("is-active");
+    } else if (q3HintClick == 4) {
+      hint4.classList.add("is-active");
+    } else if (q3HintClick == 5) {
+      hint1.classList.remove("is-active");
+      hint2.classList.remove("is-active");
+      hint3.classList.remove("is-active");
+      hint4.classList.remove("is-active");
+      q3HintClick = 0;
+    }
+  } else if (n === "q4") {
+    q4HintClick++;
+    const hint1 = document.getElementById("q4_hint_1");
+    const hint2 = document.getElementById("q4_hint_2");
+    const hint3 = document.getElementById("q4_hint_3");
+    const hint4 = document.getElementById("q4_hint_4");
+    if (q4HintClick == 1) {
+      hint1.classList.add("is-active");
+    } else if (q4HintClick == 2) {
+      hint2.classList.add("is-active");
+    } else if (q4HintClick == 3) {
+      hint3.classList.add("is-active");
+    } else if (q4HintClick == 4) {
+      hint4.classList.add("is-active");
+    } else if (q4HintClick == 5) {
+      hint1.classList.remove("is-active");
+      hint2.classList.remove("is-active");
+      hint3.classList.remove("is-active");
+      hint4.classList.remove("is-active");
+      q4HintClick = 0;
+    }
+  } else if (n === "q5") {
+    q5HintClick++;
+    const hint1 = document.getElementById("q5_hint_1");
+    const hint2 = document.getElementById("q5_hint_2");
+    const hint3 = document.getElementById("q5_hint_3");
+    const hint4 = document.getElementById("q5_hint_4");
+    if (q5HintClick == 1) {
+      hint1.classList.add("is-active");
+    } else if (q5HintClick == 2) {
+      hint2.classList.add("is-active");
+    } else if (q5HintClick == 3) {
+      hint3.classList.add("is-active");
+    } else if (q5HintClick == 4) {
+      hint4.classList.add("is-active");
+    } else if (q5HintClick == 5) {
+      hint1.classList.remove("is-active");
+      hint2.classList.remove("is-active");
+      hint3.classList.remove("is-active");
+      hint4.classList.remove("is-active");
+      q5HintClick = 0;
+    }
   }
 }
-
 /*---------- 紙を開く ----------*/
 function openLastPaper() {
   const lastmessage = document.getElementById("lastmessage");

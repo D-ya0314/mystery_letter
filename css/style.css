@@ -361,19 +361,27 @@ p {
   }
 }
 
-#q4-btn_h {
+#q3-btn_h.is-active {
   display: none;
 }
 
 #q4-btn_h.is-active {
-  display: block;
-}
-
-.q4_hint {
   display: none;
 }
 
-.q4_hint.is-active {
+#q5-btn_h {
+  display: none;
+}
+
+#q5-btn_h.is-active {
+  display: block;
+}
+
+.q_hint {
+  display: none;
+}
+
+.q_hint.is-active {
   display: block;
 }
 

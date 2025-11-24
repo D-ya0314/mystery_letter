@@ -52,7 +52,9 @@
   <body class="js_body">
     <header class="l_header js_header">
       <h2 class="l_header_logo">
-        <a href="https://mysterytop.netlify.app/" class="l_header_link">Dの謎べya</a>
+        <a href="https://mysterytop.netlify.app/" class="l_header_link"
+          >Dの謎べya</a
+        >
       </h2>
       <nav class="l_header-nav js_nav">
         <ul class="l_header-nav_list">
@@ -153,7 +155,7 @@
 
       <section class="l_question" id="q3">
         <p class="m_question_p">
-          Q3.三股がバれてしまった！？修羅場を切り抜けなければ、、、。冗談はさておき、君にはこの場を切ることができるかな？
+          Q3.三股がバレてしまい、場は大荒れ。このままじゃ君の負けだね。恋もゲームも、うまく「場を流せるか」が勝負だよ。
         </p>
         <div class="drop-area">
           <div
@@ -181,11 +183,24 @@
             <div class="heart-content">7♡</div>
           </div>
         </div>
+        <button class="m_answer_btn" id="q3-btn_h" onclick="openhint('q3')">
+          ヒント
+        </button>
+        <p class="q_hint" id="q3_hint_1">
+          ①あるトランプゲームのルールを用いた謎だ。
+        </p>
+        <p class="q_hint" id="q3_hint_2">②次のどれかのゲームだ。知らないゲームがあれば調べるがよい。<br />・ババ抜き<br />・大富豪<br />・スピード<br />・ポーカー</p>
+        <p class="q_hint" id="q3_hint_3">
+          ③大富豪のルールを使っている。
+        </p>
+        <p class="q_hint" id="q3_hint_4">
+          ④カードはドラッグ＆ドロップができる。４，３，７すべての♡を流せ。(これでヒントは終了です)
+        </p>
         <p id="q3-result"></p>
       </section>
       <section class="l_question" id="q4">
         <p class="m_question_p">
-          Q4.実はこの手紙はラブレター、、、なんてね。ところで失恋した回数は何回なんだい？<br />それにしても失恋とは悲しいことだ。時にはリセット↻して目の前のものに耳をかたむける必要があるかもしれない...
+          Q4.実はこの手紙はラブレター、、、なんてね。ところで君は何回、失恋を聞いた？<br />その瞬間は、悲しくも悔しくもある。時にはリセット↻して目の前のものに耳をかたむける必要があるかもしれない...
         </p>
         <input
           type="number"
@@ -200,20 +215,35 @@
         <button class="m_answer_btn" id="q4-btn" onclick="q4CheckAnswer()">
           答える
         </button>
-        <p id="q4-result"></p>
-        <button class="m_answer_btn" id="q4-btn_h" onclick="openhint()">
+        <button class="m_answer_btn" id="q4-btn_h" onclick="openhint('q4')">
           ヒント
         </button>
-        <p class="q4_hint" id="q4_hint_1">
+        <p class="q_hint" id="q4_hint_1">
+          ①「失恋を聞いた」おかしな言葉だ。
+        </p>
+        <p class="q_hint" id="q4_hint_2">
+          ②「目の前のものに耳をかたむける必要がある」君の目の前には何がある？それに耳を傾けていれば、わかったかもな。
+        </p>
+        <p class="q_hint" id="q4_hint_3">
+          ③「目の前のもの」は端末
+        </p>
+        <p class="q_hint" id="q4_hint_4">
+          ④端末の音を出して答えろ、ある音が聞こえるはずだ。（画面リロード↻すれば回数がリセットされます。）
+        </p>
+        <p id="q4-result"></p>
+        <button class="m_answer_btn" id="q5-btn_h" onclick="openhint('q5')">
+          ヒント
+        </button>
+        <p class="q_hint" id="q5_hint_1">
           ①指示がないね、、、私が言ったことを全部したのかい？
         </p>
-        <p class="q4_hint" id="q4_hint_2">
+        <p class="q_hint" id="q5_hint_2">
           ②君は大貧民なんだから、ちゃんと２枚渡した？
         </p>
-        <p class="q4_hint" id="q4_hint_3">
+        <p class="q_hint" id="q5_hint_3">
           ③“彼”が誰かわからないのかい？“ ”に注目してみるがよい。
         </p>
-        <p class="q4_hint" id="q4_hint_4">
+        <p class="q_hint" id="q5_hint_4">
           ④ドラッグ＆ドロップ難しいけど頑張るんだ笑(これでヒントは終了です)
         </p>
       </section>
