@@ -1,71 +1,70 @@
 "use strict";
 /*---------- あなたのLIFF IDを入力 ----------*/
-const MY_LIFF_ID = '2011066044-dXBGC5KM'; 
+const MY_LIFF_ID = "2011066044-dXBGC5KM";
 
 /*---------- ページ読み込み時のメイン処理 ----------*/
 async function initializeLiff() {
-    try {
-        // 1. LIFFの初期化
-        await liff.init({ liffId: MY_LIFF_ID });
+  try {
+    // 1. LIFFの初期化
+    await liff.init({ liffId: MY_LIFF_ID });
 
-        // 2. LINEにログインしているかチェック（していなければログイン画面へ飛ばす）
-        if (!liff.isLoggedIn()) {
-            liff.login();
-            return;
-        }
-
-        // 3. ログイン中のユーザー固有のLINE IDを取得
-        const profile = await liff.getProfile();
-        const userId = profile.userId;
-
-        // 4. あなたが作った関数を呼び出してメンバーシップ判定を行う
-        const isMember = await checkMembershipStatus(userId);
-
-        // 5. ローディング画面（確認中...）を非表示にする
-        document.getElementById('loading').classList.add('js_hidden');
-
-        // 6. 判定結果によって画面の表示をコントロールする
-        if (isMember) {
-            // 会員なら「有料の謎」を表示する
-            document.getElementById('premium-content').classList.remove('js_hidden');
-        } else {
-            // 非会員なら「拒否画面」を表示する
-            document.getElementById('error-content').classList.remove('js_hidden');
-        }
-
-    } catch (error) {
-        console.error('LIFF初期化または判定の失敗:', error);
-        document.getElementById('loading').innerText = 'エラーが発生しました。もう一度LINEから開き直してください。';
+    // 2. LINEにログインしているかチェック（していなければログイン画面へ飛ばす）
+    if (!liff.isLoggedIn()) {
+      liff.login();
+      return;
     }
+
+    // 3. ログイン中のユーザー固有のLINE IDを取得
+    const profile = await liff.getProfile();
+    const userId = profile.userId;
+
+    // 4. あなたが作った関数を呼び出してメンバーシップ判定を行う
+    const isMember = await checkMembershipStatus(userId);
+
+    // 5. ローディング画面（確認中...）を非表示にする
+    document.getElementById("loading").classList.add("js_hidden");
+
+    // 6. 判定結果によって画面の表示をコントロールする
+    if (isMember) {
+      // 会員なら「有料の謎」を表示する
+      document.getElementById("premium-content").classList.remove("js_hidden");
+    } else {
+      // 非会員なら「拒否画面」を表示する
+      document.getElementById("error-content").classList.remove("js_hidden");
+    }
+  } catch (error) {
+    console.error("LIFF初期化または判定の失敗:", error);
+    // エラーの生メッセージを画面に出して原因を特定する
+    document.getElementById("loading").innerText =
+      "エラー詳細: " + error.message;
+  }
+  // main.js の一番下の catch 部分を以下に書き換え
 }
 
 /*---------- LINEメンバーシップ判定（提示していただいた完璧なコード） ----------*/
 async function checkMembershipStatus(userId) {
-    try {
-        // Netlifyに作成した隠し部屋（Functions）に向けて、ユーザーIDを安全に送信
-        const response = await fetch('/.netlify/functions/check-membership', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ userId: userId })
-        });
+  try {
+    // Netlifyに作成した隠し部屋（Functions）に向けて、ユーザーIDを安全に送信
+    const response = await fetch("/.netlify/functions/check-membership", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: userId }),
+    });
 
-        if (!response.ok) return false;
+    if (!response.ok) return false;
 
-        const data = await response.json();
-        return data.isMember; // 隠し部屋から返ってきた true または false をそのまま返す
-
-    } catch (e) {
-        console.error("メンバーシップ確認通信に失敗:", e);
-        return false;
-    }
+    const data = await response.json();
+    return data.isMember; // 隠し部屋から返ってきた true または false をそのまま返す
+  } catch (e) {
+    console.error("メンバーシップ確認通信に失敗:", e);
+    return false;
+  }
 }
 
 /*---------- ページが読み込まれたら自動で実行させる ----------*/
 window.onload = initializeLiff;
-
-
 
 /*---------- 幕開け ----------*/
 function start() {
@@ -521,7 +520,7 @@ const observer = new IntersectionObserver(
   {
     root: null, // ビューポート（画面）基準
     threshold: 0.1, // 10% 見えたら発動
-  }
+  },
 );
 
 observer.observe(footer);
