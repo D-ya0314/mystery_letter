@@ -1,4 +1,27 @@
 "use strict";
+/*/*---------- LINEメンバーシップ判定 /*----------*/
+async function checkMembershipStatus(userId) {
+    try {
+        // Netlifyに作成した隠し部屋（Functions）に向けて、ユーザーIDを安全に送信
+        const response = await fetch('/.netlify/functions/check-membership', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userId: userId })
+        });
+
+        if (!response.ok) return false;
+
+        const data = await response.json();
+        return data.isMember; // 隠し部屋から返ってきた true または false をそのまま返す
+
+    } catch (e) {
+        console.error("メンバーシップ確認通信に失敗:", e);
+        return false;
+    }
+}
+
 
 /*---------- 幕開け ----------*/
 function start() {

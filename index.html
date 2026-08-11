@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
@@ -50,39 +50,52 @@
     <audio id="buon" src="audio/buon.mp3" preload="auto"></audio>
   </head>
   <body class="js_body">
-    <div class="start">
-      <button class="m_answer_btn" onclick="start()">スタート</button>
-    </div>
-    <!-- 黒い全画面レイヤー -->
-    <div id="intro-overlay">
-      <div id="intro-text">ドン！</div>
-    </div>
-    <div id="fadeout-overlay"></div>
-    <div class="l_question0">
-      <div class="l_contents l_container-sm">
-        <p>うっ...</p>
-        <p>「最初の文字を読むとその世界に入れる。」</p>
-        <p>通りすがりの人が私に紙を押し付けながら呟いた。</p>
-        <p>“彼”は何を伝えたかったのだろう...？</p>
-        <p>紙には次のメッセージが書かれていた。</p>
-      </div>
-      <div class="letter is-active">
-        <p class="message">Loudly Echoes The Tiny Encrypted Request.</p>
-      </div>
+    <!-- ローディング画面 -->
+    <div id="loading">LINEログイン確認中...</div>
 
-      <input
-        type="text"
-        id="q0-answer"
-        class="m_answer"
-        placeholder="ここに答えを入力"
-      />
-      <button class="m_answer_btn" onclick="q0CheckAnswer()">答える</button>
-      <p id="q0-result"></p>
-    </div>
-    <div class="l_contents l_container-sm">
+    <!-- 一般ユーザー（未加入者）に表示する拒否画面 -->
+    <div id="error-content" class="hidden">
       <p>
-        ※次に進んだ後、上下グレーのヘッダー・フッターは、謎解きに使用しません。
+        この謎に挑戦するには、LINE公式アカウントのメンバーシップ（有料プラン）への加入が必要です。
       </p>
+    </div>
+
+    <!-- メンバーシップ会員だけに表示する「有料の謎」 -->
+    <div id="premium-content" class="hidden">
+      <div class="start">
+        <button class="m_answer_btn" onclick="start()">スタート</button>
+      </div>
+      <!-- 黒い全画面レイヤー -->
+      <div id="intro-overlay">
+        <div id="intro-text">ドン！</div>
+      </div>
+      <div id="fadeout-overlay"></div>
+      <div class="l_question0">
+        <div class="l_contents l_container-sm">
+          <p>うっ...</p>
+          <p>「最初の文字を読むとその世界に入れる。」</p>
+          <p>通りすがりの人が私に紙を押し付けながら呟いた。</p>
+          <p>“彼”は何を伝えたかったのだろう...？</p>
+          <p>紙には次のメッセージが書かれていた。</p>
+        </div>
+        <div class="letter is-active">
+          <p class="message">Loudly Echoes The Tiny Encrypted Request.</p>
+        </div>
+
+        <input
+          type="text"
+          id="q0-answer"
+          class="m_answer"
+          placeholder="ここに答えを入力"
+        />
+        <button class="m_answer_btn" onclick="q0CheckAnswer()">答える</button>
+        <p id="q0-result"></p>
+      </div>
+      <div class="l_contents l_container-sm">
+        <p>
+          ※次に進んだ後、上下グレーのヘッダー・フッターは、謎解きに使用しません。
+        </p>
+      </div>
     </div>
   </body>
 </html>
