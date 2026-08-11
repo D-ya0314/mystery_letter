@@ -1,5 +1,45 @@
 "use strict";
-/*/*---------- LINEメンバーシップ判定 /*----------*/
+/*---------- あなたのLIFF IDを入力 ----------*/
+const MY_LIFF_ID = '2011066044-dXBGC5KM'; 
+
+/*---------- ページ読み込み時のメイン処理 ----------*/
+async function initializeLiff() {
+    try {
+        // 1. LIFFの初期化
+        await liff.init({ liffId: MY_LIFF_ID });
+
+        // 2. LINEにログインしているかチェック（していなければログイン画面へ飛ばす）
+        if (!liff.isLoggedIn()) {
+            liff.login();
+            return;
+        }
+
+        // 3. ログイン中のユーザー固有のLINE IDを取得
+        const profile = await liff.getProfile();
+        const userId = profile.userId;
+
+        // 4. あなたが作った関数を呼び出してメンバーシップ判定を行う
+        const isMember = await checkMembershipStatus(userId);
+
+        // 5. ローディング画面（確認中...）を非表示にする
+        document.getElementById('loading').classList.add('js_hidden');
+
+        // 6. 判定結果によって画面の表示をコントロールする
+        if (isMember) {
+            // 会員なら「有料の謎」を表示する
+            document.getElementById('premium-content').classList.remove('js_hidden');
+        } else {
+            // 非会員なら「拒否画面」を表示する
+            document.getElementById('error-content').classList.remove('js_hidden');
+        }
+
+    } catch (error) {
+        console.error('LIFF初期化または判定の失敗:', error);
+        document.getElementById('loading').innerText = 'エラーが発生しました。もう一度LINEから開き直してください。';
+    }
+}
+
+/*---------- LINEメンバーシップ判定（提示していただいた完璧なコード） ----------*/
 async function checkMembershipStatus(userId) {
     try {
         // Netlifyに作成した隠し部屋（Functions）に向けて、ユーザーIDを安全に送信
@@ -21,6 +61,10 @@ async function checkMembershipStatus(userId) {
         return false;
     }
 }
+
+/*---------- ページが読み込まれたら自動で実行させる ----------*/
+window.onload = initializeLiff;
+
 
 
 /*---------- 幕開け ----------*/

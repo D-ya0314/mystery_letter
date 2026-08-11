@@ -1194,6 +1194,10 @@ p {
 }
 
 /*js*/
+.js_hidden {
+  display: none;
+}
+
 .js_body.is-active {
   overflow: hidden; /* スクロールを無効化 */
 }
