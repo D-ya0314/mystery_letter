@@ -16,7 +16,7 @@ exports.handler = async (event, context) => {
 
   /* ★ここから追加：身内・家族用のホワイトリスト機能★ */
   const ALLOWED_USERS = [
-    "Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", // あなたのLINEユーザーID
+    "U0602079f1acff8298d2bc73fa2e0b6d5", // あなたのLINEユーザーID
     "Uyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy", // 家族のLINEユーザーID
   ];
 
