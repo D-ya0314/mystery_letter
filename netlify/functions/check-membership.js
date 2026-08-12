@@ -11,16 +11,35 @@ exports.handler = async (event, context) => {
     };
   }
 
+  // 誰がログインしたかログを残します
+  console.log("Access User ID is: " + userId);
+
+  /* ★ここから追加：身内・家族用のホワイトリスト機能★ */
+  const ALLOWED_USERS = [
+    "Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", // あなたのLINEユーザーID
+    "Uyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy", // 家族のLINEユーザーID
+  ];
+
+  if (ALLOWED_USERS.includes(userId)) {
+    console.log(`身内ユーザーのため無条件で通過させます: ${userId}`);
+    return {
+      statusCode: 200,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ isMember: true }), // LINE APIに聞く前に強制合格にする
+    };
+  }
+
   // ② Netlifyに隠した秘密鍵を読み込み
   const accessToken = process.env.LINE_CHANNEL_ACCESS_TOKEN;
 
   try {
     // ③ LINE公式のメンバーシップ確認API（2026年最新仕様）を呼び出す
     // ※今回は例として、LINEのメンバーシップAPIエンドポイントを設定します
-    const response = await fetch(`https://line.me{userId}`, {
+    // 安全にURLの文字列を足し算で繋ぐ書き方に修正します
+    const response = await fetch("https://line.me" + userId, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: "Bearer " + accessToken,
       },
     });
 
