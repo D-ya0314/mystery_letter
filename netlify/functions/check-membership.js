@@ -36,7 +36,7 @@ exports.handler = async (event, context) => {
     // ③ LINE公式のメンバーシップ確認API（2026年最新仕様）を呼び出す
     // ※今回は例として、LINEのメンバーシップAPIエンドポイントを設定します
     // 安全にURLの文字列を足し算で繋ぐ書き方に修正します
-    const response = await fetch("https://line.me" + userId, {
+    const response = await fetch("https://line.me/v2/bot/membership/user/" + userId, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + accessToken,
