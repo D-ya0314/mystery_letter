@@ -1,7 +1,7 @@
 "use strict";
 /*---------- あなたのLIFF IDを入力 ----------*/
 const MY_LIFF_ID = "2011066044-dXBGC5KM";
-
+let userId = null;
 /*---------- ページ読み込み時のメイン処理 ----------*/
 async function initializeLiff() {
   try {
@@ -17,7 +17,7 @@ async function initializeLiff() {
     // 3. ログイン中のユーザーデータ取得
     // 固有のLINE IDを取得
     const profile = await liff.getProfile();
-    const userId = profile.userId;
+    userId = profile.userId;
     // LINE公式アカウントの友だち追加状況を取得
     const friendship = await liff.getFriendship();
     const isFriend = friendship.friendFlag;
@@ -83,7 +83,7 @@ function display_fri(isFriend, userId) {
     // 友だち追加済みなら「謎」を表示
     document.getElementById("premium-content").classList.remove("js_hidden");
     // Googleスプレッドシートに記載
-    recordJoin(userId, 'DWM_test');
+    recordJoin(userId, 'DWM_letter');
   } else {
     // 友だち追加していなければ拒否画面
     document.getElementById("error-content").classList.remove("js_hidden");
@@ -100,7 +100,7 @@ function display_fri(isFriend, userId) {
 
 /*---------- GAS ---------*/
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbxTMJ8Pp5A_uCChoXaZSyRKt4vjkKmRz2oIrBkqfVxYxJYmzt9c_RWUGO-ibKHX20C9RQ/exec';
-
+// 開始
 async function recordJoin(userId, puzzleId) {
   try {
     const response = await fetch(GAS_URL, {
@@ -118,6 +118,27 @@ async function recordJoin(userId, puzzleId) {
 
   } catch (error) {
     console.error('参加記録エラー:', error);
+  }
+}
+
+// クリア
+async function recordClear(userId, puzzleId) {
+  try {
+    const response = await fetch(GAS_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        userId: userId,
+        puzzleId: puzzleId,
+        action: 'clear'
+      })
+    });
+
+    const data = await response.json();
+
+    console.log('クリア記録:', data);
+
+  } catch (error) {
+    console.error('クリア記録エラー:', error);
   }
 }
 
@@ -181,10 +202,11 @@ function handleCardClick() {
 
     if (clickCount == q4AnswerValue) {
       // 遷移
+      recordClear(userId, "DWM_letter");
       fOverlay.style.opacity = 1;
       document.getElementById("buon").play();
       setTimeout(() => {
-        window.location.href = "clear.html"; // ← ここを遷移先に変更
+        window.location.href = "clear.html";
       }, 3000);
     }
   }
