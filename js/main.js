@@ -44,6 +44,7 @@ async function initializeLiff() {
 
 /*---------- LINEメンバーシップ判定 ----------*/
 async function checkMembershipStatus(userId) {
+  testSendToGAS();
   try {
     // Netlifyに作成した隠し部屋（Functions）に向けて、ユーザーIDを安全に送信
     const response = await fetch("/.netlify/functions/check-membership", {
