@@ -202,6 +202,7 @@ function handleCardClick() {
 
     if (clickCount == q4AnswerValue) {
       // 遷移
+      console.log("クリア時のLINE ID:", userId);
       recordClear(userId, "DWM_letter");
       fOverlay.style.opacity = 1;
       document.getElementById("buon").play();
