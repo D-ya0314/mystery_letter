@@ -83,7 +83,7 @@ function display_fri(isFriend) {
     // 友だち追加済みなら「謎」を表示
     document.getElementById("premium-content").classList.remove("js_hidden");
     // Googleスプレッドシートに記載
-    await recordJoin(userId, 'DWM_test');
+    recordJoin(userId, 'DWM_test');
   } else {
     // 友だち追加していなければ拒否画面
     document.getElementById("error-content").classList.remove("js_hidden");
