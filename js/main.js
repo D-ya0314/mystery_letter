@@ -1,7 +1,7 @@
 "use strict";
 /*---------- あなたのLIFF IDを入力 ----------*/
 const MY_LIFF_ID = "2011066044-dXBGC5KM";
-let userId = null;
+let userId = sessionStorage.getItem("lineUserId");
 /*---------- ページ読み込み時のメイン処理 ----------*/
 async function initializeLiff() {
   try {
@@ -18,6 +18,7 @@ async function initializeLiff() {
     // 固有のLINE IDを取得
     const profile = await liff.getProfile();
     userId = profile.userId;
+    sessionStorage.setItem("lineUserId", userId);
     // LINE公式アカウントの友だち追加状況を取得
     const friendship = await liff.getFriendship();
     const isFriend = friendship.friendFlag;
