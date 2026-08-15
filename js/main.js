@@ -15,10 +15,11 @@ async function initializeLiff() {
     }
 
     // 3. ログイン中のユーザーデータ取得
-    const profile = await liff.getProfile();
     // 固有のLINE IDを取得
+    const profile = await liff.getProfile();
     const userId = profile.userId;
     // LINE公式アカウントの友だち追加状況を取得
+    const friendship = await liff.getFriendship();
     const isFriend = friendship.friendFlag;
 
     // 4. 関数を呼び出して判定する
