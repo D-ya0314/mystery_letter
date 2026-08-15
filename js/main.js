@@ -14,34 +14,34 @@ async function initializeLiff() {
       return;
     }
 
-    // 3. ログイン中のユーザー固有のLINE IDを取得
+    // 3. ログイン中のユーザーデータ取得
     const profile = await liff.getProfile();
+    // 固有のLINE IDを取得
     const userId = profile.userId;
+    // LINE公式アカウントの友だち追加状況を取得
+    const isFriend = friendship.friendFlag;
 
-    // 4. あなたが作った関数を呼び出してメンバーシップ判定を行う
-    const isMember = await checkMembershipStatus(userId);
+    // 4. 関数を呼び出して判定する
+    // メンバーシップ判定を行う
+    // const isMember = await checkMembershipStatus(userId);
 
     // 5. ローディング画面（確認中...）を非表示にする
     document.getElementById("loading").classList.add("js_hidden");
 
     // 6. 判定結果によって画面の表示をコントロールする
-    if (isMember) {
-      // 会員なら「有料の謎」を表示する
-      document.getElementById("premium-content").classList.remove("js_hidden");
-    } else {
-      // 非会員なら「拒否画面」を表示する
-      document.getElementById("error-content").classList.remove("js_hidden");
-    }
+    // メンバーシップ
+    // display_mem(isMember);
+    // 公式追加
+    display_fri(isFriend);
   } catch (error) {
     console.error("LIFF初期化または判定の失敗:", error);
     // エラーの生メッセージを画面に出して原因を特定する
     document.getElementById("loading").innerText =
       "エラー詳細: " + error.message;
   }
-  // main.js の一番下の catch 部分を以下に書き換え
 }
 
-/*---------- LINEメンバーシップ判定（提示していただいた完璧なコード） ----------*/
+/*---------- LINEメンバーシップ判定 ----------*/
 async function checkMembershipStatus(userId) {
   try {
     // Netlifyに作成した隠し部屋（Functions）に向けて、ユーザーIDを安全に送信
@@ -60,6 +60,29 @@ async function checkMembershipStatus(userId) {
   } catch (e) {
     console.error("メンバーシップ確認通信に失敗:", e);
     return false;
+  }
+}
+
+/*---------- 判定結果によって画面の表示をコントロール ----------*/
+// メンバーシップ
+function display_mem(isMember) {
+  if (isMember) {
+    // 会員なら「有料の謎」を表示する
+    document.getElementById("premium-content").classList.remove("js_hidden");
+  } else {
+    // 非会員なら「拒否画面」を表示する
+    document.getElementById("error-content").classList.remove("js_hidden");
+  }
+}
+
+// 公式追加
+function display_fri(isFriend) {
+  if (isFriend) {
+    // 友だち追加済みなら「謎」を表示
+    document.getElementById("premium-content").classList.remove("js_hidden");
+  } else {
+    // 友だち追加していなければ拒否画面
+    document.getElementById("error-content").classList.remove("js_hidden");
   }
 }
 

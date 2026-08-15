@@ -1,4 +1,4 @@
-// netlify/functions/check-membership.js
+// netlify/functions/check-friendship.js
 
 exports.handler = async (event, context) => {
   // ① 静的サイトから送られてきた LINEのユーザーIDを取得
