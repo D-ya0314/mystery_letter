@@ -54,11 +54,13 @@
     <!-- ローディング画面 -->
     <div id="loading">LINEログイン確認中...</div>
 
-    <!-- 一般ユーザー（未加入者）に表示する拒否画面 -->
+    <!-- 拒否画面 -->
     <div id="error-content" class="js_hidden">
-      <p>
-        この謎に挑戦するには、LINE公式アカウントを友だち追加してください。
-      </p>
+      <p>この謎に挑戦するには、LINE公式アカウントの友だち追加が必要です。</p>
+
+      <button id="add-line-btn" class="m_answer_btn">友だち追加する</button>
+
+      <p id="friend-check-message"></p>
     </div>
 
     <!-- メンバーシップ会員だけに表示する「有料の謎」 -->

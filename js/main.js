@@ -84,6 +84,14 @@ function display_fri(isFriend) {
   } else {
     // 友だち追加していなければ拒否画面
     document.getElementById("error-content").classList.remove("js_hidden");
+
+    // 「友だち追加する」ボタン
+    document.getElementById("add-line-btn").addEventListener("click", () => {
+      liff.openWindow({
+        url: "https://lin.ee/tseJ7Wa",
+        external: false,
+      });
+    });
   }
 }
 
