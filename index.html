@@ -52,15 +52,15 @@
   </head>
   <body class="js_body">
     <!-- ローディング画面 -->
-    <div id="loading">LINEログイン確認中...</div>
+    <div id="loading" class="l_contents l_container-sm">
+      <p>LINEログイン確認中...</p>
+    </div>
 
     <!-- 拒否画面 -->
-    <div id="error-content" class="js_hidden">
+    <div id="error-content" class="js_hidden l_contents l_container-sm">
       <p>この謎に挑戦するには、LINE公式アカウントの友だち追加が必要です。</p>
 
       <button id="add-line-btn" class="m_answer_btn">友だち追加する</button>
-
-      <p id="friend-check-message"></p>
     </div>
 
     <!-- メンバーシップ会員だけに表示する「有料の謎」 -->
