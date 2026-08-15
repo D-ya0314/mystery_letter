@@ -33,7 +33,7 @@ async function initializeLiff() {
     // メンバーシップ
     // display_mem(isMember);
     // 公式追加
-    display_fri(isFriend);
+    display_fri(isFriend, userId);
   } catch (error) {
     console.error("LIFF初期化または判定の失敗:", error);
     // エラーの生メッセージを画面に出して原因を特定する
@@ -78,7 +78,7 @@ function display_mem(isMember) {
 }
 
 // 公式追加
-function display_fri(isFriend) {
+function display_fri(isFriend, userId) {
   if (isFriend) {
     // 友だち追加済みなら「謎」を表示
     document.getElementById("premium-content").classList.remove("js_hidden");
