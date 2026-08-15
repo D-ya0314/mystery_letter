@@ -82,6 +82,8 @@ function display_fri(isFriend) {
   if (isFriend) {
     // 友だち追加済みなら「謎」を表示
     document.getElementById("premium-content").classList.remove("js_hidden");
+    // Googleスプレッドシートに記載
+    await recordJoin(userId, 'DWM_test');
   } else {
     // 友だち追加していなければ拒否画面
     document.getElementById("error-content").classList.remove("js_hidden");
@@ -99,24 +101,24 @@ function display_fri(isFriend) {
 /*---------- GAS ---------*/
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbxTMJ8Pp5A_uCChoXaZSyRKt4vjkKmRz2oIrBkqfVxYxJYmzt9c_RWUGO-ibKHX20C9RQ/exec';
 
-function testSendToGAS() {
+async function recordJoin(userId, puzzleId) {
+  try {
+    const response = await fetch(GAS_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        userId: userId,
+        puzzleId: puzzleId,
+        action: 'join'
+      })
+    });
 
-  fetch(GAS_URL, {
-    method: 'POST',
-    body: JSON.stringify({
-      userId: 'U_TEST_002',
-      puzzleId: 'DWM_test',
-      action: 'join'
-    })
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log('GAS response:', data);
-  })
-  .catch(error => {
-    console.error('GAS error:', error);
-  });
+    const data = await response.json();
 
+    console.log('参加記録:', data);
+
+  } catch (error) {
+    console.error('参加記録エラー:', error);
+  }
 }
 
 /*---------- ページが読み込まれたら自動で実行させる ----------*/
