@@ -205,9 +205,9 @@ function handleCardClick() {
       recordClear(userId, "DWM_letter");
       fOverlay.style.opacity = 1;
       document.getElementById("buon").play();
-      setTimeout(() => {
-        window.location.href = "clear.html";
-      }, 3000);
+      // setTimeout(() => {
+      //   window.location.href = "clear.html";
+      // }, 3000);
     }
   }
 }
