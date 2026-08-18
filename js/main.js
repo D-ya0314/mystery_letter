@@ -84,7 +84,7 @@ function display_fri(isFriend, userId) {
     // 友だち追加済みなら「謎」を表示
     document.getElementById("premium-content").classList.remove("js_hidden");
     // Googleスプレッドシートに記載
-    recordJoin(userId, 'DWM_letter');
+    recordJoin(userId, "DWM_letter");
   } else {
     // 友だち追加していなければ拒否画面
     document.getElementById("error-content").classList.remove("js_hidden");
@@ -100,25 +100,25 @@ function display_fri(isFriend, userId) {
 }
 
 /*---------- GAS ---------*/
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbxTMJ8Pp5A_uCChoXaZSyRKt4vjkKmRz2oIrBkqfVxYxJYmzt9c_RWUGO-ibKHX20C9RQ/exec';
+const GAS_URL =
+  "https://script.google.com/macros/s/AKfycbxTMJ8Pp5A_uCChoXaZSyRKt4vjkKmRz2oIrBkqfVxYxJYmzt9c_RWUGO-ibKHX20C9RQ/exec";
 // 開始
 async function recordJoin(userId, puzzleId) {
   try {
     const response = await fetch(GAS_URL, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify({
         userId: userId,
         puzzleId: puzzleId,
-        action: 'join'
-      })
+        action: "join",
+      }),
     });
 
     const data = await response.json();
 
-    console.log('参加記録:', data);
-
+    console.log("参加記録:", data);
   } catch (error) {
-    console.error('参加記録エラー:', error);
+    console.error("参加記録エラー:", error);
   }
 }
 
@@ -126,25 +126,44 @@ async function recordJoin(userId, puzzleId) {
 async function recordClear(userId, puzzleId) {
   try {
     const response = await fetch(GAS_URL, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify({
         userId: userId,
         puzzleId: puzzleId,
-        action: 'clear'
-      })
+        action: "clear",
+      }),
     });
 
     const data = await response.json();
 
-    console.log('クリア記録:', data);
-
+    console.log("クリア記録:", data);
   } catch (error) {
-    console.error('クリア記録エラー:', error);
+    console.error("クリア記録エラー:", error);
   }
 }
 
 /*---------- ページが読み込まれたら自動で実行させる ----------*/
 window.onload = initializeLiff;
+
+/*---------- アンケート ----------*/
+const FORM_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSc-tnS50ygy6VaD4vX-tnKcIEcdTDxxqG_2nlNWxw9-KXZO1A/viewform";
+
+function openSurvey() {
+  const formUrl =
+    FORM_URL +
+    "?usp=pp_url" +
+    "&entry.655470745=" +
+    encodeURIComponent(userId) +
+    "&entry.1019551269=" +
+    encodeURIComponent("DWM_letter");
+
+  window.open(formUrl, "_blank");
+}
+
+document.getElementById("survey-btn").addEventListener("click", () => {
+  openSurvey();
+});
 
 /*---------- 幕開け ----------*/
 function start() {
