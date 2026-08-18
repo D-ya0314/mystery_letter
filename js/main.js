@@ -148,6 +148,7 @@ window.onload = initializeLiff;
 /*---------- アンケート ----------*/
 const FORM_URL =
   "https://docs.google.com/forms/d/e/1FAIpQLSc-tnS50ygy6VaD4vX-tnKcIEcdTDxxqG_2nlNWxw9-KXZO1A/viewform";
+const surveyBtn = document.getElementById("survey-btn");
 
 function openSurvey() {
   const formUrl =
@@ -160,10 +161,11 @@ function openSurvey() {
 
   window.open(formUrl, "_blank");
 }
-
-document.getElementById("survey-btn").addEventListener("click", () => {
-  openSurvey();
-});
+if (surveyBtn) {
+  surveyBtn.addEventListener("click", () => {
+    openSurvey();
+  });
+}
 
 /*---------- 幕開け ----------*/
 function start() {
@@ -207,7 +209,7 @@ function brakeHeart() {
 /*-------- タップ（クリック）カウント ---------*/
 let clickCount = 0;
 const qf = document.getElementById("qf");
-let fOverlay = document.getElementById("fadeout-overlay");
+const fOverlay = document.getElementById("fadeout-overlay");
 function handleCardClick() {
   if (
     qf.classList.contains("is-active") &&
