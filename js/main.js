@@ -207,7 +207,7 @@ function brakeHeart() {
 /*-------- タップ（クリック）カウント ---------*/
 let clickCount = 0;
 const qf = document.getElementById("qf");
-const fOverlay = document.getElementById("fadeout-overlay");
+let fOverlay = document.getElementById("fadeout-overlay");
 function handleCardClick() {
   if (
     qf.classList.contains("is-active") &&
